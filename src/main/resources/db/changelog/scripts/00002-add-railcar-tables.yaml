@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 00002-add-railcar-tables
+      author: Kevin Hannan
+      changes:
+        - createTable:
+            tableName: scac
+            columns:
+              - column:
+                  name: scac
+                  type: char(6)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: char(20)
+                  constraints:
+                    nullable: false
+
+        - insert:
+            tableName: scac
+            columns:
+            - column:
+                name: scac
+                value: "EL"
+            - column:
+                name: name
+                value: "Erie Lackawanna"
+        - insert:
+            tableName: scac
+            columns:
+            - column:
+                name: scac
+                value: "NS"
+            - column:
+                name: name
+                value: "Norfolk Southern"

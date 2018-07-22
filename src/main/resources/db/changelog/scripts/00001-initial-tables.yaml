@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 00001-initial-tables
+      author: Kevin Hannan
+      changes:
+        - createTable:
+            tableName: division
+            columns:
+              - column:
+                  name: div_nr
+                  type: int
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: char(20)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: territory
+            columns:
+              - column:
+                  name: div_nr
+                  type: int
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: territory_code
+                  type: int
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: char(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: unk
+                  type: char(1)
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseColumnNames: div_nr
+            baseTableName: territory
+            constraintName: fk_division_territory
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: div_nr
+            referencedTableName: division
