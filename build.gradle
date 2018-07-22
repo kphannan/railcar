@@ -102,3 +102,58 @@ dependencies {
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile( "mysql:mysql-connector-java:8.0.11" )
 }
+
+
+def changeLog = "$projectDir/src/main/resources/db/db.changelog-master.yaml"
+
+
+
+task dev {
+    description 'define dev environonment for liquibase'
+    doLast {
+        println "executing dev"
+        liquibase {
+            activities {
+                main {
+                    changeLogFile changeLog
+                    url 'jdbc:mysql://127.0.0.1:8889/railcar?serverTimezone=UTC'
+                    username 'railcaradmin'
+                    password 'railcaradmin'
+                }
+            }
+        }
+    }
+}
+
+task('qa') {
+    doLast() {
+        println "executing qa"
+        liquibase {
+            activities {
+                main {
+                    changeLogFile changeLog
+                    url 'jdbc:mysql://qa-environment/mydb'
+                    username 'root'
+                    password '123456'
+                }
+            }
+        }
+    }
+}
+
+
+task('prod') {
+    doLast() {
+        println "executing prod"
+        liquibase {
+            activities {
+                main {
+                    changeLogFile changeLog
+                    url 'jdbc:mysql://prod-environment/mydb'
+                    username 'root'
+                    password '123456'
+                }
+            }
+        }
+    }
+}
