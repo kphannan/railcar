@@ -1,8 +1,11 @@
 databaseChangeLog:
 
   - include:
-      file: db/changelog/scripts/00001-initial-tables.yaml
+      file: db/changelog/scripts/00001-add-carrier-tables.yaml
 
   - include:
-      file: db/changelog/scripts/00002-add-railcar-tables.yaml
+      file: db/changelog/scripts/00002-rail-equipment-tables.yaml
+
+  - include:
+      file: db/changelog/scripts/01000-ns-location-tables.yaml
 

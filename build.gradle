@@ -40,7 +40,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
         // classpath 'org.liquibase:liquibase-gradle-plugin:1.1.1'
-        // classpath 'org.liquibase:liquibase-gradle-plugin'
+        classpath 'org.liquibase:liquibase-gradle-plugin:2.0.0'
     }
 }
 
@@ -61,6 +61,12 @@ plugins {
 
 group = 'hannan.lan'
 version = '0.0.0'
+
+
+configurations {
+    liquibase
+}
+
 
 //apply plugin: 'java'
 //apply plugin: 'eclipse'
@@ -84,18 +90,43 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+def changeLog = "$projectDir/src/main/resources/db/db.changelog-master.yaml"
+
+liquibase {
+    activities {
+        main {
+            changeLogFile changeLog
+            url 'jdbc:mysql://127.0.0.1:8889/railcar?serverTimezone=UTC'
+            username 'railcaradmin'
+            password 'railcaradmin'
+            outputFile 'dbchangelog.txt'
+        }
+    }
+}
+
+
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-security")
+    // compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    // provided group: 'org.projectlombok', name: 'lombok', version: '1.18.0'
+    // compile( "org.projectlombok:lombok:1.18.0" )
+    compile( "org.projectlombok:lombok" )
+
+
     // https://mvnrepository.com/artifact/org.liquibase/liquibase-core
     compile( "org.liquibase:liquibase-core" )
+    // liquibase "org.liquibase:liquibase-core:2.0.0"
+    liquibaseRuntime( "org.liquibase:liquibase-core" )
+    liquibaseRuntime( "mysql:mysql-connector-java")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("org.springframework.security:spring-security-test")
+    // testCompile("org.springframework.security:spring-security-test")
     testCompile("junit:junit")
 
     runtime( "mysql:mysql-connector-java")
@@ -104,56 +135,55 @@ dependencies {
 }
 
 
-def changeLog = "$projectDir/src/main/resources/db/db.changelog-master.yaml"
 
 
 
-task dev {
-    description 'define dev environonment for liquibase'
-    doLast {
-        println "executing dev"
-        liquibase {
-            activities {
-                main {
-                    changeLogFile changeLog
-                    url 'jdbc:mysql://127.0.0.1:8889/railcar?serverTimezone=UTC'
-                    username 'railcaradmin'
-                    password 'railcaradmin'
-                }
-            }
-        }
-    }
-}
+// task dev {
+//     description 'define dev environonment for liquibase'
+//     doLast {
+//         println "executing dev"
+//         liquibase {
+//             activities {
+//                 main {
+//                     changeLogFile changeLog
+//                     url 'jdbc:mysql://127.0.0.1:8889/railcar?serverTimezone=UTC'
+//                     username 'railcaradmin'
+//                     password 'railcaradmin'
+//                 }
+//             }
+//         }
+//     }
+// }
 
-task('qa') {
-    doLast() {
-        println "executing qa"
-        liquibase {
-            activities {
-                main {
-                    changeLogFile changeLog
-                    url 'jdbc:mysql://qa-environment/mydb'
-                    username 'root'
-                    password '123456'
-                }
-            }
-        }
-    }
-}
+// task('qa') {
+//     doLast() {
+//         println "executing qa"
+//         liquibase {
+//             activities {
+//                 main {
+//                     changeLogFile changeLog
+//                     url 'jdbc:mysql://qa-environment/mydb'
+//                     username 'root'
+//                     password '123456'
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
-task('prod') {
-    doLast() {
-        println "executing prod"
-        liquibase {
-            activities {
-                main {
-                    changeLogFile changeLog
-                    url 'jdbc:mysql://prod-environment/mydb'
-                    username 'root'
-                    password '123456'
-                }
-            }
-        }
-    }
-}
+// task('prod') {
+//     doLast() {
+//         println "executing prod"
+//         liquibase {
+//             activities {
+//                 main {
+//                     changeLogFile changeLog
+//                     url 'jdbc:mysql://prod-environment/mydb'
+//                     username 'root'
+//                     password '123456'
+//                 }
+//             }
+//         }
+//    }
+//}

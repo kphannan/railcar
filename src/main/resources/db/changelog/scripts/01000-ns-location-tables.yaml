@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 00001-initial-tables
+      id: 01000-ns-location-tables
       author: Kevin Hannan
       changes:
         - createTable:

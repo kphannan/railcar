@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 00002-add-railcar-tables
+      id: 00001-add-carrier-tables
       author: Kevin Hannan
       changes:
         - createTable:
-            tableName: scac
+            tableName: carrier
             columns:
               - column:
                   name: scac
@@ -19,7 +19,7 @@ databaseChangeLog:
                     nullable: false
 
         - insert:
-            tableName: scac
+            tableName: carrier
             columns:
             - column:
                 name: scac
@@ -28,7 +28,7 @@ databaseChangeLog:
                 name: name
                 value: "Erie Lackawanna"
         - insert:
-            tableName: scac
+            tableName: carrier
             columns:
             - column:
                 name: scac

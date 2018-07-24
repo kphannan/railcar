@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 00002-rail-equipment-tables
+      author: Kevin Hannan
+      changes:
+databaseChangeLog:
+  - changeSet:
+      id: 00003-add-railcar
+      author: Kevin Hannan
+      changes:
+      - createTable:
+          columns:
+          - column:
+              constraints:
+                nullable: false
+              name: carrier
+              type: CHAR(6)
+          - column:
+              constraints:
+                nullable: false
+              name: number
+              type: INT
+          - column:
+              constraints:
+                nullable: false
+              name: car type
+              type: INT
+          tableName: rail_equipment
+
+      - addPrimaryKey:
+          columnNames: carrier, number
+          constraintName: PRIMARY
+          tableName: rail_equipment
+
+      - addForeignKeyConstraint:
+          baseColumnNames: carrier
+          baseTableName: rail_equipment
+          constraintName: fk_railequipment_carrier
+          deferrable: false
+          initiallyDeferred: false
+          onDelete: NO ACTION
+          onUpdate: NO ACTION
+          referencedColumnNames: scac
+          referencedTableName: carrier
