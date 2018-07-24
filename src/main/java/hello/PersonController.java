@@ -3,6 +3,8 @@ package hello;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +24,12 @@ class PersonController
         person.setLastname( "Smith" );
 
         return person;
+    }
+
+
+    @PostMapping("/hello")
+    public String postHello(@RequestBody final Person person )
+    {
+        return "Hello " + person.getFirstname() + " " + person.getLastname() + "!";
     }
 }
