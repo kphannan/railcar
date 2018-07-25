@@ -129,6 +129,10 @@ dependencies {
     // testCompile("org.springframework.security:spring-security-test")
     testCompile("junit:junit")
 
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    testCompile( "io.rest-assured:rest-assured:3.1.0" )
+
+
     runtime( "mysql:mysql-connector-java")
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile( "mysql:mysql-connector-java:8.0.11" )
