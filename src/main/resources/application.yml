@@ -1,0 +1,75 @@
+
+spring:
+  profiles:
+    active: development
+
+---
+spring:
+  profiles: default
+
+server:
+  address: 127.0.0.1
+  email: kphanann@gmail.com
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:8889/railcar?serverTimezone=UTC
+    username: railcaradmin
+    password: railcaradmin
+
+  jpa:
+    hibernate.ddl-auto: update
+    generated-ddl: true
+    show-sql: true
+
+  security:
+    user:
+      name: admin
+      password: passw0rd
+      roles: USER
+
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: *
+
+  endpoint:
+    shutdown:
+      enabled: true
+
+liquibase:
+  change-log: classpath:db/changelog/db.changelog-master.yaml
+
+---
+spring:
+  profiles: development
+
+  security:
+    user:
+      name: admin
+      password: pass
+      roles: USER
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:8889/railcar?serverTimezone=UTC
+    username: railcaradmin
+    password: railcaradmin
+
+server:
+  address: 127.0.0.1
+  email: kphanann@gmail.com
+
+---
+spring:
+  profiles: qa
+
+---
+spring:
+  profiles: production
+server:
+  address: sodor
+
+
+#jdbc:mysql://localhost/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
